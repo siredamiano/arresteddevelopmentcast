@@ -8,10 +8,17 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import "CastItem.h"
+#import "CastItemCell.h"
+#import <Parse/Parse.h>
+#import "Utils.h"
+#import <AFNetworking/AFNetworking.h>
+#import "UIImageView+AFNetworking.h"
 
 @interface MasterViewController ()
 
-@property NSMutableArray *objects;
+@property NSMutableArray *cast;
+
 @end
 
 @implementation MasterViewController
@@ -22,11 +29,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    self.cast = [[NSMutableArray alloc] init];
+    
+    //Load the nib file
+    UINib *nib = [UINib nibWithNibName:@"CastItemCell" bundle:nil];
+    
+    //Register this NIB, which contains the cell
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"CastItemCell"];
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor orangeColor];
+    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    
+    
+    [self fetchItems];
+    
+   }
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,55 +56,91 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)insertNewObject:(id)sender {
-    if (!self.objects) {
-        self.objects = [[NSMutableArray alloc] init];
-    }
-    [self.objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
 #pragma mark - Segues
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = self.objects[indexPath.row];
+        CastItem *object = self.cast[indexPath.row];
         [[segue destinationViewController] setDetailItem:object];
     }
 }
 
 #pragma mark - Table View
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.objects.count;
+    return self.cast.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
-    NSDate *object = self.objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    CastItemCell *cell = (CastItemCell *)[tableView dequeueReusableCellWithIdentifier:@"CastItemCell" forIndexPath:indexPath];
+    
+    CastItem *castItem = self.cast[indexPath.row];
+    cell.castMemberTitle.text = castItem.title;
+    cell.date.text = [Utils actualDate];
+    
+    
+    NSURL *url = [NSURL URLWithString:castItem.imageURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    UIImage *placeholderImage = [UIImage imageNamed:@"placeholder"];
+    
+    __weak CastItemCell *weakCell = cell;
+    __weak CastItem *weakCastItem = castItem;
+    
+    [cell.imageView setImageWithURLRequest:request
+                          placeholderImage:placeholderImage
+                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                       
+                                       weakCastItem.castImage = image;
+                                       weakCell.castMemberImage.image = [Utils setThumbnailFromImage:image];
+                                       weakCell.castMemberImage.layer.cornerRadius = weakCell.castMemberImage.frame.size.width / 2;
+                                       weakCell.castMemberImage.clipsToBounds = YES;
+                                       [weakCell setNeedsLayout];
+                                       
+                                   } failure:nil];
+    
     return cell;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self performSegueWithIdentifier:@"showDetail" sender:nil];
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }
+- (void) fetchItems {
+
+    PFQuery *query = [PFQuery queryWithClassName:@"Cast"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        if(!error) {
+        
+            //Got the objects from Parse for that class name
+            NSLog(@"Successfully retrieved %lu items.", (unsigned long)objects.count);
+            
+            for (PFObject *castObject in objects){
+                CastItem *castMember = [[CastItem alloc] init];
+                castMember.title = castObject[@"title"];
+                castMember.imageURL = castObject[@"image"];
+                castMember.desc = castObject[@"description"];
+                NSLog(@"Found cast member: %@",castObject[@"title"]);
+                [self.cast addObject:castMember];
+                NSLog(@"Adding cast member to array...");
+                
+            }
+            
+            [self.tableView reloadData];
+            
+        } else {
+            //Log details of why it failed
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+        
+    } ];
+
 }
+
+
+
 
 @end
