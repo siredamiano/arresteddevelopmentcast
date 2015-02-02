@@ -12,8 +12,10 @@
 
 + (NSString *) actualDate {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/DD/YYYY"];
-    NSString *date = [dateFormatter stringFromDate:[[NSDate alloc] init]];
+    [dateFormatter setDateFormat:@"MM/dd/YYYY"];
+    NSDate *now = [[NSDate alloc] init];
+    
+    NSString *date = [dateFormatter stringFromDate:now];
     return date;
 }
 

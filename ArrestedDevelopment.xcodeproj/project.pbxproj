@@ -14,7 +14,6 @@
 		B67CC7021A7D840300E5DE40 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B67CC7011A7D840300E5DE40 /* DetailViewController.m */; };
 		B67CC7071A7D840300E5DE40 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B67CC7061A7D840300E5DE40 /* Images.xcassets */; };
 		B67CC70A1A7D840300E5DE40 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B67CC7081A7D840300E5DE40 /* LaunchScreen.xib */; };
-		B67CC7161A7D840300E5DE40 /* ArrestedDevelopmentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B67CC7151A7D840300E5DE40 /* ArrestedDevelopmentTests.m */; };
 		B67CC7211A7D89AE00E5DE40 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B67CC71F1A7D89AE00E5DE40 /* Bolts.framework */; };
 		B67CC7221A7D89AE00E5DE40 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B67CC7201A7D89AE00E5DE40 /* Parse.framework */; };
 		B67CC7241A7D89F500E5DE40 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B67CC7231A7D89F500E5DE40 /* AudioToolbox.framework */; };
@@ -37,6 +36,7 @@
 		B67CC7491A7DA48F00E5DE40 /* CastItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B67CC7481A7DA48F00E5DE40 /* CastItemCell.m */; };
 		B67CC74C1A7DA93C00E5DE40 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = B67CC74B1A7DA93C00E5DE40 /* Utils.m */; };
 		B69564401A7DD2ED00F596CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B695643E1A7DD2ED00F596CF /* Main.storyboard */; };
+		B6F8D6ED1A7DEE670072A1DE /* ArrestedDevelopmentTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F8D6EC1A7DEE670072A1DE /* ArrestedDevelopmentTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +64,6 @@
 		B67CC7091A7D840300E5DE40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B67CC70F1A7D840300E5DE40 /* ArrestedDevelopmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArrestedDevelopmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B67CC7141A7D840300E5DE40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B67CC7151A7D840300E5DE40 /* ArrestedDevelopmentTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArrestedDevelopmentTests.m; sourceTree = "<group>"; };
 		B67CC71F1A7D89AE00E5DE40 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		B67CC7201A7D89AE00E5DE40 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		B67CC7231A7D89F500E5DE40 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -91,6 +90,7 @@
 		B67CC74A1A7DA93C00E5DE40 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		B67CC74B1A7DA93C00E5DE40 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		B695643F1A7DD2ED00F596CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B6F8D6EC1A7DEE670072A1DE /* ArrestedDevelopmentTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrestedDevelopmentTest.m; sourceTree = "<group>"; };
 		EDAE57EB2082382BE093E626 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F870C4EE6C698B451D7F9550 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -177,25 +177,25 @@
 		B67CC6F51A7D840300E5DE40 /* ArrestedDevelopment */ = {
 			isa = PBXGroup;
 			children = (
-				B695643E1A7DD2ED00F596CF /* Main.storyboard */,
 				B67CC6FA1A7D840300E5DE40 /* AppDelegate.h */,
 				B67CC6FB1A7D840300E5DE40 /* AppDelegate.m */,
 				B67CC6FD1A7D840300E5DE40 /* MasterViewController.h */,
 				B67CC6FE1A7D840300E5DE40 /* MasterViewController.m */,
 				B67CC7001A7D840300E5DE40 /* DetailViewController.h */,
 				B67CC7011A7D840300E5DE40 /* DetailViewController.m */,
-				B67CC7061A7D840300E5DE40 /* Images.xcassets */,
-				B67CC7081A7D840300E5DE40 /* LaunchScreen.xib */,
-				B67CC6F61A7D840300E5DE40 /* Supporting Files */,
 				B67CC7391A7D8B8100E5DE40 /* Constants.h */,
 				B67CC73A1A7D8B8100E5DE40 /* Constants.m */,
 				B67CC73C1A7D94FB00E5DE40 /* CastItem.h */,
 				B67CC73D1A7D94FB00E5DE40 /* CastItem.m */,
-				B67CC7451A7DA36D00E5DE40 /* CastItemCell.xib */,
 				B67CC7471A7DA48F00E5DE40 /* CastItemCell.h */,
 				B67CC7481A7DA48F00E5DE40 /* CastItemCell.m */,
 				B67CC74A1A7DA93C00E5DE40 /* Utils.h */,
 				B67CC74B1A7DA93C00E5DE40 /* Utils.m */,
+				B695643E1A7DD2ED00F596CF /* Main.storyboard */,
+				B67CC7451A7DA36D00E5DE40 /* CastItemCell.xib */,
+				B67CC7081A7D840300E5DE40 /* LaunchScreen.xib */,
+				B67CC7061A7D840300E5DE40 /* Images.xcassets */,
+				B67CC6F61A7D840300E5DE40 /* Supporting Files */,
 			);
 			path = ArrestedDevelopment;
 			sourceTree = "<group>";
@@ -212,8 +212,8 @@
 		B67CC7121A7D840300E5DE40 /* ArrestedDevelopmentTests */ = {
 			isa = PBXGroup;
 			children = (
-				B67CC7151A7D840300E5DE40 /* ArrestedDevelopmentTests.m */,
 				B67CC7131A7D840300E5DE40 /* Supporting Files */,
+				B6F8D6EC1A7DEE670072A1DE /* ArrestedDevelopmentTest.m */,
 			);
 			path = ArrestedDevelopmentTests;
 			sourceTree = "<group>";
@@ -386,7 +386,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B67CC7161A7D840300E5DE40 /* ArrestedDevelopmentTests.m in Sources */,
+				B6F8D6ED1A7DEE670072A1DE /* ArrestedDevelopmentTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
