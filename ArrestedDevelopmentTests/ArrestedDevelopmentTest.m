@@ -54,7 +54,6 @@
     
     XCTAssertTrue([thumbnail isKindOfClass:[UIImage class]], @"UIImage created from setThumbnailFromImage method is a instance of UIImage");
     
-    
 }
 
 

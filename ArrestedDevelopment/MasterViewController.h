@@ -7,6 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CastItem.h"
+#import "CastItemCell.h"
+#import <Parse/Parse.h>
+#import "Utils.h"
+#import <AFNetworking/AFNetworking.h>
+#import "UIImageView+AFNetworking.h"
 
 @interface MasterViewController : UITableViewController
 
