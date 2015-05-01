@@ -103,6 +103,11 @@
     [self performSegueWithIdentifier:@"showDetail" sender:nil];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 75.0;
+}
+
 - (void) fetchItems {
 
     PFQuery *query = [PFQuery queryWithClassName:@"Cast"];
